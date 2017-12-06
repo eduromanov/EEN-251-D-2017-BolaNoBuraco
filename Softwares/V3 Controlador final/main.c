@@ -73,9 +73,7 @@ uint32_t ul_sysclk = 120000000;
 float result =0.0;
 float sensor =0.0;
 unsigned char resultprint[14];
-float teta=0.0;
 volatile uint16_t bmw= 0;
-volatile uint16_t cnt = 0;
 float erro_now = 0;
 float erro_last = 0;
 float atuador_now = 0;
@@ -99,7 +97,7 @@ static void configure_console(void)
 
 //##---TC HANDLER---##//##---TC HANDLER---##//##---TC HANDLER---##//##---TC HANDLER---##//##---TC HANDLER---##//##---TC HANDLER---##//##---TC HANDLER---##//##---TC HANDLER---##//##---TC HANDLER---##
 
-void TC0_Handler(void)											//configura a função da interrupção do timer
+void TC0_Handler(void)											//configura a funÃ§Ã£o da interrupÃ§Ã£o do timer
 {
 	
 	tc_get_status(TC0,0);
@@ -121,9 +119,8 @@ void ADC_Handler(void)
 	erro_last=erro_now;
 	erro_now=(REF-result);
 	atuador_last=atuador_now;
-	atuador_now=(0.013612*erro_now)-(0.01347539*erro_last)+(0.97619048*atuador_last);
-	
-bmw=(atuador_now*1.7)*100/14;
+	atuador_now=(0.013612*erro_now)-(0.01347539*erro_last)+(0.97619048*atuador_last);	
+	bmw=(atuador_now*1.7)*100/14;
 	PWM->PWM_CH_NUM[0].PWM_CDTY = bmw*4096 + 3000;
 	sensor=result;
 	result=bmw;
